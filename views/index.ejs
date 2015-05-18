@@ -9,6 +9,9 @@
   <body>
     <h1><%= title %></h1>
     <p>Welcome to <%= title %></p>
-    <button>Click Meh</button>
+    <form name="user" action="/users" method="post">
+      <input type="text" name="summoner" required />
+      <input type="submit" value="Lookup"/>
+    </form>
   </body>
 </html>
