@@ -1,8 +1,17 @@
 body {
-  padding: 50px;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
 }
 
 a {
   color: #00B7FF;
+}
+
+div.inline{
+  display:inline-flex;
+}
+
+.large-text {
+  vertical-align: middle;
+  font-size: 2.5em;
+  margin: 1em 2em;
 }
