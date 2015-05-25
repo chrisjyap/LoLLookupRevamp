@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html ng-app ="myApp" lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Stats for <%= name %></title>
@@ -8,16 +8,31 @@
     <script src="jquery.js"></script>
     <script src="js/bootstrap.js"></script>
     <script src="angular.js"></script>
+    <script src="angular-route.js"></script>
+    <script src="/javascripts/angularController.js"></script>
     <script>
-        
+        var myApp = angular.module('myApp', ['ngRoute', 'myApp.menu']);
+        myApp.constant( 'summonerID', '<%= id %>');
+        myApp.config(function($routeProvider){
+            $routeProvider.when('/runes', {
+                templateUrl: '/partials/_runes.html'//,
+                //controller: 'MenuController'
+            }).when('/', {
+                templateUrl: 'partials/_main.html'//,
+                //controller: 'MenuController'
+            }).otherwise({
+                    redirectTo: '/'
+            });
+        });
     </script>
 </head>
-<body>
+<body ng-controller= "MenuController">
     <div class="page-header">
         <div>
             <img src="<%= profileIcon %>" />
             <span class="large-text"> <%= name %></span>
         </div>
     </div>
+    <div ng-view></div>
 </body>
 </html>
