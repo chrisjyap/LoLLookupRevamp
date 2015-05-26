@@ -6,12 +6,33 @@ a {
   color: #00B7FF;
 }
 
-div.inline{
-  display:inline-flex;
+div.over-half-page{
+  width: 60%;
+  display: inline-flex;
 }
 
 .large-text {
   vertical-align: middle;
   font-size: 2.5em;
   margin: 1em 2em;
+}
+
+div.custom-header{
+  display: inline-flex;
+  width: 100%;
+  position: relative;
+}
+
+div.header-buttons{
+  margin-top: 3em;
+}
+
+img{
+  height: 128px;
+  width: 128px;
+}
+
+.custom-caption{
+  display: block;
+  text-align: center;
 }

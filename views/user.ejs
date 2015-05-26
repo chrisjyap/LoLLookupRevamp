@@ -12,7 +12,8 @@
     <script src="/javascripts/angularController.js"></script>
     <script>
         var myApp = angular.module('myApp', ['ngRoute', 'myApp.menu']);
-        myApp.constant( 'summonerID', '<%= id %>');
+        myApp.constant('summonerID', '<%= id %>');
+        myApp.constant('rank', '<%= rankIcon%>');
         myApp.config(function($routeProvider){
             $routeProvider.when('/runes', {
                 templateUrl: '/partials/_runes.html'//,
@@ -27,12 +28,22 @@
     </script>
 </head>
 <body ng-controller= "MenuController">
-    <div class="page-header">
-        <div>
+    <div class="page-header custom-header">
+        <div class="over-half-page">
             <img src="<%= profileIcon %>" />
             <span class="large-text"> <%= name %></span>
+            <div>
+                <img src="/images/<%= rankIcon %>" />
+                <span class = 'custom-caption'>{{rank}}</span>
+            </div>
+        </div>
+        <div class="btn-group-lg btn-group header-buttons" role="group" aria-label="buttonController">
+            <button type="button" class="btn btn-default active">Main</button>
+            <button type="button" class="btn btn-default">Runes</button>
+            <button type="button" class="btn btn-default">Masteries</button>
         </div>
     </div>
+
     <div ng-view></div>
 </body>
 </html>
