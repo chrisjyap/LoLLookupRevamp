@@ -4,7 +4,7 @@ var request = require('request');
 var Q = require('q');
 var router = express.Router();
 
-const patchVer = '5.9.1';
+const patchVer = '5.12.1';
 const summonerURL ='v1.4/summoner/by-name/';
 const summoner2URL='v1.4/summoner/';
 const rankIconURL = 'v2.5/league/by-summoner/';
@@ -12,14 +12,14 @@ const statsURL = 'v1.3/stats/by-summoner/';
 const iconURL = 'http://ddragon.leagueoflegends.com/cdn/'+ patchVer+ '/img/profileicon/';
 
 /* GET users listing. */
-router.get('/', function(req, res, next) {
+router.get('/query', function(req, res, next) {
   //console.log(req.query.summoner);
   var user = req.query.summoner.replace(' ', '').trim();
   console.log('user: ', user);
   idRequest(user)
       .then(rankIconRequest)
       .then(function(data){
-        res.render('user', data);
+        res.send(data);
       })
       .catch(function(err){
         res.render('error', err)
@@ -50,7 +50,7 @@ var rankIconRequest = function(data){
         requestData = JSON.parse(requestData);
         for(var i= 0; i<requestData[data.id].length; i++) {
           if(requestData[data.id][i]['queue'] === 'RANKED_SOLO_5x5'){
-            rankIcon = requestData[data.id][i].tier + '_' + requestData[data.id][i].entries[0].division + '.png';
+            rankIcon = requestData[data.id][i]['tier'] + '_' + requestData[data.id][i].entries[0].division + '.png';
             break;
           }
         }

@@ -1,17 +1,19 @@
 <!DOCTYPE html>
-<html>
+<html ng-app ="lolApp">
   <head>
-    <title><%= title %></title>
+    <title>LoL Lookup</title>
     <link rel='stylesheet' href='/stylesheets/style.css'/>
-    <script src = 'http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js'></script>
-    <script src = '/javascripts/lookup.js'></script>
+    <link rel='stylesheet' href='bootstrap/dist/css/bootstrap.css'/>
   </head>
   <body>
-    <h1><%= title %></h1>
-    <p>Welcome to <%= title %></p>
-    <form name="user" action="/users" method="get">
-      <input type="text" name="summoner" required />
-      <input type="submit" value="Lookup"/>
-    </form>
+    <div data-ui-view></div>
+
+    <script src="jquery/dist/jquery.js"></script>
+    <script src="bootstrap/dist/js/bootstrap.js"></script>
+    <script src="angular/angular.js"></script>
+    <script src="angular-ui-router/release/angular-ui-router.js"></script>
+
+    <script src="/javascripts/lolApp.js"></script>
+    <script src="/javascripts/controllers.js"></script>
   </body>
 </html>

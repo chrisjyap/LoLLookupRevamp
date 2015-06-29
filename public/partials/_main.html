@@ -1,3 +1,17 @@
-<div>
-    Main info
+<div class="page-header custom-header" ng-controller="MainController">
+    <div class="over-half-page">
+        <img ng-src={{data.profileIcon}} />
+        <span class="large-text"> {{data.name}}</span>
+        <div>
+            <img ng-src="/images/{{data.rankIcon}}" />
+            <span class = 'custom-caption'>{{rank}}</span>
+        </div>
+    </div>
+    <div class="btn-group-lg btn-group header-buttons" role="group">
+        <button type="button" class="btn btn-default active">Main</button>
+        <button type="button" class="btn btn-default">Runes</button>
+        <button type="button" class="btn btn-default">Masteries</button>
+    </div>
 </div>
+
+<div ng-view></div>
