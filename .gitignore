@@ -5,6 +5,7 @@ bower_components/
 public/images/*
 
 config.json
+champs.json
 build/
 dist/
 

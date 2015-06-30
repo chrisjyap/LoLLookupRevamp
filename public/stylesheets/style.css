@@ -17,6 +17,12 @@ div.over-half-page{
   margin: 1em 2em;
 }
 
+.med-text {
+  vertical-align: middle;
+  font-size: 1.7em;
+  padding-top: 1.3em;
+}
+
 div.custom-header{
   display: inline-flex;
   width: 100%;
@@ -40,3 +46,19 @@ img{
 .center{ text-align: center; }
 
 .accordion-group { cursor: default; }
+
+.champ-img{
+  height: 100px;
+  width: 100px;
+  float:left;
+}
+
+.champ{
+  width:700px;
+  height: 100px;
+  margin-left: 25%;
+}
+
+.champ::after, .nav > li, .clear{
+  clear:both;
+}

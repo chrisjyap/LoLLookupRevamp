@@ -2,6 +2,7 @@ var express = require('express');
 var config = require('../config.json');
 var request = require('request');
 var Q = require('q');
+//var champs = require('../champs.json');
 var router = express.Router();
 
 const patchVer = '5.12.1';
@@ -105,32 +106,37 @@ var basicStatRequest = function(id){
 
 var rankStatRequest = function(id){
   var defer = Q.defer();
-  var promises=[];
+  var promises=[], deaths;
   if(!id) defer.reject({message: 'No ID found.'});
   else{
     request(buildURL('na/', statsURL, id, '/ranked?'), function(err, response, data){
       if(err) defer.reject(err);
       data = JSON.parse(data);
       for(var i = 0; i< data['champions'].length; i++){
-        if(data['champions'][i]['id'] !== 0)
+        if(data['champions'][i]['id'] !== 0){
           promises.push(champLookup(data['champions'][i]['id']));
+          deaths = data['champions'][i]['stats']['totalDeathsPerSession'] !== 0 ? data['champions'][i]['stats']['totalDeathsPerSession'] : 1;
+          data['champions'][i]['stats']['KDA'] = (data['champions'][i]['stats']['totalAssists'] +
+              data['champions'][i]['stats']['totalChampionKills'] ) / deaths;
+          data['champions'][i]['stats']['winRate'] = data['champions'][i]['stats']['totalSessionsWon'] / data['champions'][i]['stats']['totalSessionsPlayed'] * 100;
+        }
+        else{
+          data['generalStats'] = data['champions'][i]['stats'];
+          data['champions'].splice(i, 1);
+          i-=1;
+        }
       }
 
       Q.all(promises).then(function(champData){
         var temp = {};
-        console.log(champData);
-        console.log(data);
         for(var i = 0; i< data['champions'].length; i++){
-          console.log('id: ', data['champions'][i]['id']);
-          if(data['champions'][i]['id'] !== 0){
-            temp = JSON.parse(champData[i]);
-            console.log(temp);
-            data['champions'][i]['image']= ddragonURL+ 'champion/' + temp['key'] + '.png';
-            data['champions'][i]['name']= temp['key'];
-            data['champions'][i]['title']= temp['title'];
-          }
+          //console.log('id: ', data['champions'][i]['id']);
+          temp = JSON.parse(champData[i]);
+          data['champions'][i]['image']= ddragonURL+ 'champion/' + temp['key'] + '.png';
+          data['champions'][i]['name']= temp['key'];
+          data['champions'][i]['title']= temp['title'];
         }
-        console.log('data: ', data);
+        //console.log('data: ', data);
         defer.resolve(data);
       }).catch(function(err){
         console.log('err: ', err);

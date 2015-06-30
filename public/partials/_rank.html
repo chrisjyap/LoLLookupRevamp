@@ -1,11 +1,28 @@
 <div class='center' ng-controller="RankController">
     <h1>Rank Stats</h1>
     <div>
-        <ul class = 'nav accordion' id="myAccordion">
-            <li ng-repeat="champ in rankData.champions track by $index">
-                <div ng-if="champ.id !== 0">
-                    <img ng-src={{champ.image}} alt="{{champ.name}}"/>
-                    <span class="large-text">{{champ.name}}, {{champ.title}}</span>
+        <div ng-if='!rankData' class="plus-loader">Loading…</div>
+        <ul class = 'nav accordion' id="rankAccordion">
+            <li ng-repeat="champ in rankData.champions | orderBy:'name' track by $index">
+                <div class="accordion-group">
+                    <div class="accordion-heading">
+                        <div class="champ clear accordion-toggle"  data-toggle="collapse" data-parent="#rankAccordion" data-target="#{{champ.name}}">
+                            <img class='champ-img' ng-src={{champ.image}} alt="{{champ.name}}"/>
+                            <p class="med-text">{{champ.name}}, {{champ.title}}</p>
+                        </div>
+                    </div>
+                    <div id={{champ.name}} ng-class="{in: {{$index}}===0}" class="accordion-body collapse">
+                        <div class="accordion-inner">
+                            <p><b>Kills: </b>{{champ.stats.totalChampionKills}}</p>
+                            <p><b>Deaths: </b>{{champ.stats.totalDeathsPerSession}}</p>
+                            <p><b>Assists: </b>{{champ.stats.totalAssists}}</p>
+                            <p><b>KDA: </b>{{champ.stats.KDA | number:2}}</p>
+                            <p><b>Wines: </b>{{champ.stats.totalSessionsWon}}</p>
+                            <p><b>Losses: </b>{{champ.stats.totalSessionsLost}}</p>
+                            <p><b>Win Rate: </b>{{champ.stats.winRate | number: 2}}%</p>
+
+                        </div>
+                    </div>
                 </div>
             </li>
         </ul>
