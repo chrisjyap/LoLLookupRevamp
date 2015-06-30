@@ -1,0 +1,13 @@
+<div class='center' ng-controller="RankController">
+    <h1>Rank Stats</h1>
+    <div>
+        <ul class = 'nav accordion' id="myAccordion">
+            <li ng-repeat="champ in rankData.champions track by $index">
+                <div ng-if="champ.id !== 0">
+                    <img ng-src={{champ.image}} alt="{{champ.name}}"/>
+                    <span class="large-text">{{champ.name}}, {{champ.title}}</span>
+                </div>
+            </li>
+        </ul>
+    </div>
+</div>

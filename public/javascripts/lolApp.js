@@ -2,7 +2,7 @@
  * Created by Chris on 6/27/2015.
  */
 
-var lolApp = angular.module('lolApp', [ 'ui.router', 'lolApp.search', 'lolApp.main']);
+var lolApp = angular.module('lolApp', [ 'ui.router', 'lolApp.search', 'lolApp.main', 'lolApp.rank']);
 
 /*lolApp.value('profile', {});*/
 
@@ -21,22 +21,13 @@ lolApp.config(function($stateProvider, $urlRouterProvider){
         url: '/:page/:child',
         params: {
             page: {value: null },
-            child: { value: null},
-            data: null
+            child: { value: null}
         },
-        resolve: {
-            deps: ['scriptLoader', function(scriptLoader){
-                return scriptLoader;
-            }]
-        },
-        templateProvider: function ($http, $stateParams, scriptLoader) {
+        templateProvider: function ($http, $stateParams) {
             console.log('page: ', '/partials/_' + $stateParams.page + ( $stateParams.child ? "_" + $stateParams.child : "") + '.html');
             return $http.get('/partials/_' + $stateParams.page + ( $stateParams.child ? "_" + $stateParams.child : "") + '.html')
                 .then(function(response) {
-                    return scriptLoader.loadScriptTagsFromData(response.data);
-                })
-                .then(function(responseData){
-                    return responseData;
+                    return response.data;
                 });
         }
     });

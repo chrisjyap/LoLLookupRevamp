@@ -1,0 +1,22 @@
+<div class="center fade-in" ng-controller="MainController">
+    <h1>General Stats</h1>
+    <div>
+        <ul class = 'nav accordion' id="myAccordion">
+            <li ng-repeat="mode in data.generalStats track by $index">
+                <div class="accordion-group">
+                    <div class="accordion-heading">
+                        <h4 class="accordion-toggle" data-toggle="collapse" data-parent="#myAccordion" data-target="#{{mode.playerStatSummaryType}}">
+                            {{mode.type}}
+                        </h4>
+                    </div>
+                    <div id={{mode.playerStatSummaryType}} ng-class="{in: {{$index}}===0}" class="accordion-body collapse">
+                        <div class="accordion-inner">
+                            <p>Wins: {{mode.wins}}</p>
+                            <p ng-if="mode.losses !== undefined">Losses: {{mode.losses}}</p>
+                        </div>
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </div>
+</div>

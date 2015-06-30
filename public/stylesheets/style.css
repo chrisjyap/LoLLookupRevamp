@@ -36,3 +36,7 @@ img{
   display: block;
   text-align: center;
 }
+
+.center{ text-align: center; }
+
+.accordion-group { cursor: default; }
