@@ -4,7 +4,6 @@
 
 var lolApp = angular.module('lolApp', [ 'ui.router', 'lolApp.search', 'lolApp.main', 'lolApp.rank']);
 
-/*lolApp.value('profile', {});*/
 
 lolApp.config(function($stateProvider, $urlRouterProvider){
     $urlRouterProvider.otherwise("/app");
@@ -14,7 +13,8 @@ lolApp.config(function($stateProvider, $urlRouterProvider){
     }).state('main',{
         url:'/main',
         params:{
-           data: null
+            data: null,
+            previousState: null
         },
         templateUrl:"/partials/_main.html"
     }).state('main.page', {
@@ -31,4 +31,19 @@ lolApp.config(function($stateProvider, $urlRouterProvider){
                 });
         }
     });
+});
+
+lolApp.factory('localStorage', function($window){
+    return {
+        set: function(key, val) {
+            $window.localStorage.setItem(key, val);
+            return this;
+        },
+        get: function(key) {
+            return $window.localStorage.getItem(key);
+        },
+        clear: function(){
+            $window.localStorage.clear();
+        }
+    };
 });

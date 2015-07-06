@@ -2,7 +2,7 @@
     <h1>General Stats</h1>
     <div>
         <ul class = 'nav accordion' id="myAccordion">
-            <li ng-repeat="mode in data.generalStats track by $index">
+            <li ng-repeat="mode in data.generalStats | orderBy:'type' track by $index">
                 <div class="accordion-group">
                     <div class="accordion-heading">
                         <h4 class="accordion-toggle" data-toggle="collapse" data-parent="#myAccordion" data-target="#{{mode.playerStatSummaryType}}">
